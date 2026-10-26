@@ -7,7 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(NavLog main.cpp
     point.h
-    haversinus.h haversinus.cpp)
+    haversinus.h haversinus.cpp
+    pathdistance.h pathdistance.cpp)
 
 include(GNUInstallDirs)
 install(TARGETS NavLog
