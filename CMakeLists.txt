@@ -5,7 +5,8 @@ project(NavLog LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(NavLog main.cpp)
+add_executable(NavLog main.cpp
+    points.h)
 
 include(GNUInstallDirs)
 install(TARGETS NavLog
