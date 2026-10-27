@@ -5,5 +5,6 @@
 #include "point.h"
 
 double pathDistance(const std::vector<Point> &points);
+double longestSegment(const std::vector<Point> &points);
 
 #endif // PATHDISTANCE_H
