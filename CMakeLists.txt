@@ -9,7 +9,8 @@ add_executable(NavLog main.cpp
     point.h
     haversinus.h haversinus.cpp
     pathdistance.h pathdistance.cpp
-    point.cpp)
+    point.cpp
+    parsernmea.h parsernmea.cpp)
 
 include(GNUInstallDirs)
 install(TARGETS NavLog
