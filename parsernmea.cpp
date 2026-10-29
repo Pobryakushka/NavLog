@@ -32,9 +32,19 @@ bool isChecksumValid(const std::string &str)
     return (checksumCheck == checksum);
 }
 
+//  $GPGGA,123519.00,5411.586,N,03737.062,E,1,08,0.9,180.4,M,14.2,M,,*64
+
 std::vector<std::string> splitString(const std::string &str)
 {
+    std::vector<std::string> fieldsArray = {};
 
+    for (int i{0}; i < static_cast<int>(str.size()); ++i)
+    {
+        int delimiterPos1 = str.find(',');
+        int delimiterPos2 = str.find(',', delimiterPos1 + 1);
+        fieldsArray.push_back(str.substr(delimiterPos1 + 1, delimiterPos2 - delimiterPos1));
+    }
+    return fieldsArray;
 }
 
 std::string getType(const std::vector<std::string> &array)

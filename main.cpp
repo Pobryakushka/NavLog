@@ -1,6 +1,7 @@
 #include <iostream>
 #include "pathdistance.h"
 #include "point.h"
+#include "parsernmea.h"
 
 int main()
 {
@@ -26,4 +27,19 @@ int main()
     std::cout << pathDistance(points) << std::endl;
     std::cout << longestSegment(points) << std::endl;
     std::cout << highestPoint(points) << std::endl;
+
+    std::vector<std::string> testSentences = {
+        "$GPGGA,123519.00,5411.586,N,03737.062,E,1,08,0.9,180.4,M,14.2,M,,*64", // GGA, правильная
+        "$GPRMC,123519.00,A,5411.586,N,03737.062,E,012.4,084.4,281026,,,A*5D",  // RMC, правильная
+        "$GPVTG,084.4,T,,M,012.4,N,023.0,K,A*03",                               // VTG, правильная
+        "$GNGGA,123520.00,,,,,0,00,99.9,,,,,,*46",                              // GGA без фиксации, сумма правильная
+        "$GPGGA,123519.00,5411.586,N,03737.062,E,1,08,0.9,180.4,M,14.2,M,,*65", // неверная сумма
+        "$GPGGA,123519.00,5411.586,N,03737.0",                                  // обрыв, нет *
+        "GPGGA,123519.00*00",                                                   // нет $
+    };
+
+    for (int i{0}; i < static_cast<int>(testSentences.size()); ++i)
+    {
+    std::cout << splitString(testSentences[i]) << std::endl;
+    }
 }
