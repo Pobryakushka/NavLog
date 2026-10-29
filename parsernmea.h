@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-bool checksumXOR(const std::string &str);
+bool isChecksumValid(const std::string &str);
 std::vector<std::string> splitString(const std::string &str);
 std::string getType(const std::vector<std::string> &array);
 
