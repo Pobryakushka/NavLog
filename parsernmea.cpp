@@ -14,40 +14,52 @@ bool isChecksumValid(const std::string &str)
 {
     size_t startPos = str.find('$');
     if (startPos != 0)
-        return false;
-
+    return false;
+    
     size_t endPos = str.find('*');
     if (endPos == std::string::npos)
-        return false;
-
+    return false;
+    
     if (str.length() - (endPos + 1) != 2)
-        return false;
-
+    return false;
+    
     int checksum = calculateXOR(str.substr(startPos + 1, endPos - (startPos + 1)));
-
+    
     std::string hexStr = str.substr(endPos +1, 2);
-
+    
     int checksumCheck = std::stoi(hexStr, nullptr, 16);
-
+    
     return (checksumCheck == checksum);
 }
 
 //  $GPGGA,123519.00,5411.586,N,03737.062,E,1,08,0.9,180.4,M,14.2,M,,*64
 
+// возвращает массив с разделенной NMEA строкой
+// пустые поля также записываются в массив
+// в первом элементе тип строки без символа $
+// последний элемент содержит контрольную сумму с *
+// вызывается после проверки суммы
 std::vector<std::string> splitString(const std::string &str)
 {
     std::vector<std::string> fieldsArray = {};
-
-    for (int i{0}; i < static_cast<int>(str.size()); ++i)
+    
+    size_t delimiterPos1 {0}, delimiterPos2 {0};
+    
+    while (delimiterPos2 != std::string::npos)
     {
-        int delimiterPos1 = str.find(',');
-        int delimiterPos2 = str.find(',', delimiterPos1 + 1);
-        fieldsArray.push_back(str.substr(delimiterPos1 + 1, delimiterPos2 - delimiterPos1));
+        delimiterPos2 = str.find(',', delimiterPos1 + 1);
+        if (str.substr(delimiterPos1 + 1, delimiterPos2 - delimiterPos1 - 1) == ""){
+            fieldsArray.push_back("...");
+        }
+        else {
+            fieldsArray.push_back(str.substr(delimiterPos1 + 1, delimiterPos2 - delimiterPos1 - 1));
+        }
+        delimiterPos1 = delimiterPos2;
     }
     return fieldsArray;
 }
 
 std::string getType(const std::vector<std::string> &array)
 {
-
+    
 }

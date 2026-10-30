@@ -27,7 +27,7 @@ int main()
     std::cout << pathDistance(points) << std::endl;
     std::cout << longestSegment(points) << std::endl;
     std::cout << highestPoint(points) << std::endl;
-
+    
     std::vector<std::string> testSentences = {
         "$GPGGA,123519.00,5411.586,N,03737.062,E,1,08,0.9,180.4,M,14.2,M,,*64", // GGA, правильная
         "$GPRMC,123519.00,A,5411.586,N,03737.062,E,012.4,084.4,281026,,,A*5D",  // RMC, правильная
@@ -37,9 +37,14 @@ int main()
         "$GPGGA,123519.00,5411.586,N,03737.0",                                  // обрыв, нет *
         "GPGGA,123519.00*00",                                                   // нет $
     };
-
-    for (int i{0}; i < static_cast<int>(testSentences.size()); ++i)
+    
+    for (int count{0}; count < testSentences.size(); ++count)
     {
-    std::cout << splitString(testSentences[i]) << std::endl;
+        std::vector<std::string> array = splitString(testSentences[count]);
+        std::cout << "\n";
+        for (int i{0}; i < static_cast<int>(array.size()); ++i)
+        {
+            std::cout << array[i] << " ";
+        }
     }
 }
