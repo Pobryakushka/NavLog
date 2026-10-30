@@ -48,18 +48,19 @@ std::vector<std::string> splitString(const std::string &str)
     while (delimiterPos2 != std::string::npos)
     {
         delimiterPos2 = str.find(',', delimiterPos1 + 1);
-        if (str.substr(delimiterPos1 + 1, delimiterPos2 - delimiterPos1 - 1) == ""){
-            fieldsArray.push_back("...");
-        }
-        else {
-            fieldsArray.push_back(str.substr(delimiterPos1 + 1, delimiterPos2 - delimiterPos1 - 1));
-        }
+        fieldsArray.push_back(str.substr(delimiterPos1 + 1, delimiterPos2 - delimiterPos1 - 1));
         delimiterPos1 = delimiterPos2;
     }
     return fieldsArray;
 }
 
+// возвращает строку с типом NMEA строки
 std::string getType(const std::vector<std::string> &array)
 {
-    
+    std::string type;
+    if (!array.empty() && array[0].size() >= 3){
+        type = array[0].substr(array[0].size() - 3, 3);
+    } else
+    type = "";
+    return type;
 }

@@ -38,13 +38,31 @@ int main()
         "GPGGA,123519.00*00",                                                   // нет $
     };
     
-    for (int count{0}; count < testSentences.size(); ++count)
-    {
-        std::vector<std::string> array = splitString(testSentences[count]);
-        std::cout << "\n";
-        for (int i{0}; i < static_cast<int>(array.size()); ++i)
-        {
-            std::cout << array[i] << " ";
+
+    // Цикл по всем строкам в векторе
+    for (const auto& sentence : testSentences) {
+        std::cout << "Processing: " << sentence << "\nResult: ";
+
+        if (!isChecksumValid(sentence)) {
+            std::cout << "Wrong checksum.\n\n";
+            continue; 
+        }
+
+        std::vector<std::string> stringArray = splitString(sentence);
+        std::string type = getType(stringArray);
+
+        if (type.empty()) {
+            std::cout << "Can't get type of this string.\n\n";
+        } else {
+            std::cout << "Success! Type is: " << type << "\n\n";
         }
     }
+
+std::vector<std::string> shortHeader = {"GP"};   // заголовок короче 3 символов
+std::vector<std::string> noFields = {};          // пустой вектор
+
+    std::cout << getType(shortHeader);
+    std::cout << getType(noFields);
+
+    return 0;
 }
