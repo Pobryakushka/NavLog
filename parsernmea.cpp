@@ -1,4 +1,7 @@
 #include "parsernmea.h"
+#include <cstddef>
+#include <string>
+#include <vector>
 
 static unsigned int calculateXOR(const std::string &str)
 {
@@ -13,22 +16,25 @@ static unsigned int calculateXOR(const std::string &str)
 bool isChecksumValid(const std::string &str)
 {
     size_t startPos = str.find('$');
-    if (startPos != 0)
-    return false;
-    
+    if (startPos != 0) {
+        return false;
+    }
+
     size_t endPos = str.find('*');
-    if (endPos == std::string::npos)
-    return false;
-    
-    if (str.length() - (endPos + 1) != 2)
-    return false;
-    
+    if (endPos == std::string::npos) {
+        return false;
+    }
+
+    if (str.length() - (endPos + 1) != 2) {
+        return false;
+    }
     int checksum = calculateXOR(str.substr(startPos + 1, endPos - (startPos + 1)));
-    
+
+
     std::string hexStr = str.substr(endPos +1, 2);
-    
+
     int checksumCheck = std::stoi(hexStr, nullptr, 16);
-    
+
     return (checksumCheck == checksum);
 }
 
@@ -42,9 +48,10 @@ bool isChecksumValid(const std::string &str)
 std::vector<std::string> splitString(const std::string &str)
 {
     std::vector<std::string> fieldsArray = {};
-    
-    size_t delimiterPos1 {0}, delimiterPos2 {0};
-    
+
+    size_t delimiterPos1 {0};
+    size_t delimiterPos2 {0};
+
     while (delimiterPos2 != std::string::npos)
     {
         delimiterPos2 = str.find(',', delimiterPos1 + 1);
@@ -60,7 +67,8 @@ std::string getType(const std::vector<std::string> &array)
     std::string type;
     if (!array.empty() && array[0].size() >= 3){
         type = array[0].substr(array[0].size() - 3, 3);
-    } else
+    } else {
     type = "";
+}
     return type;
 }

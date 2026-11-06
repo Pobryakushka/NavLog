@@ -1,4 +1,5 @@
 #include "haversinus.h"
+#include "point.h"
 #include <cmath>
 #include <numbers>
 
@@ -15,7 +16,7 @@ double haversinusDistance(const Point &p1, const Point &p2)
 {
     double latitudeDiff = degreesToRad(p2.latitude) - degreesToRad(p1.latitude);
     double longitudeDiff = degreesToRad(p2.longitude) - degreesToRad(p1.longitude);
-    double a = std::pow(std::sin(latitudeDiff/2), 2) + std::cos(degreesToRad(p1.latitude)) * std::cos(degreesToRad(p2.latitude)) * std::pow(std::sin(longitudeDiff/2), 2);
+    double a = std::pow(std::sin(latitudeDiff/2), 2) + (std::cos(degreesToRad(p1.latitude)) * std::cos(degreesToRad(p2.latitude)) * std::pow(std::sin(longitudeDiff/2), 2));
     double centralAngle = 2 * std::asin(std::sqrt(a));
     double distanceKm = earthAvgRadius * centralAngle;
     return distanceKm;

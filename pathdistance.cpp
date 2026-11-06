@@ -1,5 +1,8 @@
 #include "pathdistance.h"
 #include "haversinus.h"
+#include "point.h"
+#include <algorithm>
+#include <vector>
 
 double pathDistance(const std::vector<Point> &points)
 {
@@ -18,8 +21,7 @@ double longestSegment(const std::vector<Point> &points)
     {
         double segmentKm{};
         segmentKm = haversinusDistance(points[i], points[i+1]);
-        if (longestSegment < segmentKm)
-            longestSegment = segmentKm;
+        longestSegment = std::max(longestSegment, segmentKm);
     }
     return longestSegment;
 }
