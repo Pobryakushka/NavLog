@@ -90,10 +90,48 @@ static double convertToDegree(const std::string& field, int degreeDigits, const 
 
 std::optional<Point> parseGGA(const std::vector<std::string>& fields)
 {
+    if (fields.size() < 10)
+    {
+        return std::nullopt;
 
+    }
+    if (fields[6] == "0")
+    {
+        return std::nullopt;
+    }
+    if (fields[1].empty() || fields[2].empty() || fields[3].empty() || fields[4].empty()
+    || fields[5].empty() || fields[9].empty() || fields[7].empty() || fields[6].empty()) // проверяем чтобы все нужные поля были не пустые
+    {
+        return std::nullopt;
+    }
+    Point point{};
+    point.latitude = convertToDegree(fields[2], 2, fields[3]);
+    point.longitude = convertToDegree(fields[4], 3, fields[5]);
+    point.height = std::stod(fields[9]);
+    point.satellites = std::stoi(fields[7]);
+    point.time = fields[1];
+    return point;
 }
 
 std::optional<Point> parseRMC(const std::vector<std::string>& fields)
 {
+    if (fields.size() < 7)
+    {
+        return std::nullopt;
 
+    }
+    if (fields[2] != "A")
+    {
+        return std::nullopt;
+    }
+    if (fields[1].empty() || fields[3].empty() || fields[4].empty()
+    || fields[5].empty() || fields[6].empty()) // проверяем чтобы все нужные поля были не пустые
+    {
+        return std::nullopt;
+    }
+    Point point{};
+    point.latitude = convertToDegree(fields[3], 2, fields[4]);
+    point.longitude = convertToDegree(fields[5], 3, fields[6]);
+    point.time = fields[1];
+    return point;
 }

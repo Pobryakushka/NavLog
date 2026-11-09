@@ -10,6 +10,7 @@ struct Point
     double longitude{};
     double height{};
     std::string time;
+    int satellites{};
 };
 
 double highestPoint(const std::vector<Point> &points);
