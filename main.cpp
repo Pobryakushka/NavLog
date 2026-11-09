@@ -60,11 +60,15 @@ int main()
         }
     }
 
-std::vector<std::string> shortHeader = {"GP"};   // заголовок короче 3 символов
-std::vector<std::string> noFields = {};          // пустой вектор
+    std::vector<std::string> shortHeader = {"GP"};   // заголовок короче 3 символов
+    std::vector<std::string> noFields = {};          // пустой вектор
 
     std::cout << getType(shortHeader);
     std::cout << getType(noFields);
+
+    std::cout << convertToDegree("5411.586", 2, "N") << "\n";
+    std::cout << convertToDegree("03737.062", 3, "E") << "\n";
+    std::cout << convertToDegree("3352.128", 2, "S") << "\n";
 
     return 0;
 }

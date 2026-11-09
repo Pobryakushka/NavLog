@@ -2,6 +2,8 @@
 #include <cstddef>
 #include <string>
 #include <vector>
+#include <optional>
+#include "point.h"
 
 static unsigned int calculateXOR(const std::string &str)
 {
@@ -68,7 +70,30 @@ std::string getType(const std::vector<std::string> &array)
     if (!array.empty() && array[0].size() >= 3){
         type = array[0].substr(array[0].size() - 3, 3);
     } else {
-    type = "";
-}
+        type = "";
+    }
     return type;
+}
+
+static double convertToDegree(const std::string& field, int degreeDigits, const std::string& hemisphere)
+{
+    int degree = std::stoi(field.substr(0, degreeDigits));
+
+    double minutes = std::stod(field.substr(degreeDigits));
+
+    if (hemisphere == "S" || hemisphere == "W") {
+        return -(degree + (minutes/60));
+    }
+    return degree + (minutes/60);
+
+}
+
+std::optional<Point> parseGGA(const std::vector<std::string>& fields)
+{
+
+}
+
+std::optional<Point> parseRMC(const std::vector<std::string>& fields)
+{
+
 }

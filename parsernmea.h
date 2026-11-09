@@ -8,6 +8,8 @@ bool isChecksumValid(const std::string &str);
 std::vector<std::string> splitString(const std::string &str);
 std::string getType(const std::vector<std::string> &array);
 
+
+
 // std::string checkumXOR(const std::string str);
 
 #endif // PARSERNMEA_H
